@@ -1,0 +1,22 @@
+
+[![Travis build
+status](https://travis-ci.com/muschellij2/flexconnr.svg?branch=master)](https://travis-ci.com/muschellij2/flexconnr)
+[![AppVeyor Build
+Status](https://ci.appveyor.com/api/projects/status/github/muschellij2/flexconnr?branch=master&svg=true)](https://ci.appveyor.com/project/muschellij2/flexconnr)
+[![Coverage
+status](https://codecov.io/gh/muschellij2/flexconnr/branch/master/graph/badge.svg)](https://codecov.io/gh/muschellij2/flexconnr)
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# flexconnr Package:
+
+The goal of `flexconnr` is to provide wraps the FLEXCONN model for R
+use.
+
+## Installation
+
+You can install `flexconnr` from GitHub with:
+
+``` r
+# install.packages("remotes")
+remotes::install_github("muschellij2/flexconnr")
+```

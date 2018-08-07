@@ -1,0 +1,75 @@
+
+#' Predict from FLEXCONN model
+#'
+#' @param t1 T1-weighted image to predict from: skullstripped, bias-corrected).
+#' Since the training is 2D, make sure
+#' the test image is properly oriented, i.e. the in-plane has the highest native
+#' resolution. E.g. the training images are axial because their
+#' native resolution is 1x1x4mm^3 in axial RAI orientation.
+#' @param flair FLAIR image to predict from,
+#' must be registered to T1 and have same orientation as T1
+#' @param outdir Output directory for predictions
+#' @param gpu Either an integer for the GPU.
+#' Use "cpu" to use CPU.
+#' @param num_atlases Specifies which model to use.
+#' Determined by the number of atlases in the FLEXCONN model.
+#' @param verbose Print diagnostic messages
+#'
+#' @return A vector of filenames
+#' @export
+#'
+#' @importFrom reticulate use_python source_python
+#' @importFrom neurobase checkimg nii.stub
+#' @examples
+#' # predict_flexconn(python_cmd = "python3)
+#' library(reticulate)
+#' \dontrun{
+#' use_python("/Library/Frameworks/Python.framework/Versions/3.5/bin/python3")
+#' }
+#' flair = system.file("extdata", "FLAIR.nii.gz", package = "flexconnr")
+#' t1 = system.file("extdata", "T1.nii.gz", package = "flexconnr")
+#' pp = predict_flexconn(t1 = t1, flair = flair)
+#'
+predict_flexconn = function(
+  t1, flair,
+  outdir = NULL,
+  gpu = "cpu",
+  num_atlases = c("21", "61"),
+  verbose = TRUE) {
+
+  flexconn_dir = system.file("extdata", package = "flexconnr")
+  stopifnot(dir.exists(flexconn_dir))
+
+  test_py = file.path(flexconn_dir,
+                      "FLEXCONN_Test.py")
+  reticulate::source_python(test_py)
+
+  t1 = checkimg(t1)
+  base = nii.stub(t1, bn = TRUE)
+
+  flair = neurobase::checkimg(flair)
+  num_atlases = match.arg(num_atlases)
+
+  if (is.null(outdir)) {
+    outdir = tempfile()
+  }
+
+  outdir = path.expand(outdir)
+  dir.create(outdir, showWarnings = FALSE, recursive = TRUE)
+
+  models = file.path(flexconn_dir,
+                     paste0(num_atlases, "atlases"))
+  models = list.files(pattern = ".h5$", path = models,
+                      full.names = TRUE, recursive = TRUE)
+  outfiles =  paste0(base,
+                     c("_LesionMembership.nii.gz", "_LesionMask.nii.gz"))
+  outfiles = file.path(outdir, outfiles)
+  if (verbose) {
+    message(paste0("Output files should be located at: ",
+                   paste(outfiles, collapse = " ")))
+  }
+
+  res = py_predict_flexconn(t1, flair, models, outdir, gpu)
+
+  return(outfiles)
+}
