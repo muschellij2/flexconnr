@@ -21,7 +21,7 @@ Note that 2D patches are employed because usually FLAIR images are acquired 2D.}
 \item{outdir}{Output directory where the trained models are written.}
 
 \item{gpu}{Choice for GPU. Use the integer ID for the GPU.
-Use "cpu" to use CPU.}
+Use "cpu" to use CPU.  Can also be \code{NULL}.}
 
 \item{verbose}{Print diagnostic messages}
 
@@ -35,11 +35,9 @@ A vector of filenames
 Training for Fast Lesion Extraction using Convolutional Neural Networks (FLEXCONN)
 }
 \examples{
-# predict_flexconn(python_cmd = "python3)
+#' \dontrun{
 library(reticulate)
-use_python("/Library/Frameworks/Python.framework/Versions/3.5/bin/python3")
-flair = system.file("extdata", "FLAIR.nii.gz", package = "flexconnr")
-t1 = system.file("extdata", "T1.nii.gz", package = "flexconnr")
-pp = predict_flexconn(t1 = t1, flair = flair)
+use_python("python3")
+}
 
 }

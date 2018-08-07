@@ -1,6 +1,6 @@
 Type: Package
 Package: flexconnr
-Version: 0.1.0
+Version: 0.2.0
 Title: FLEXCONN Model Wrapped in R
 Description: Wraps the FLEXCONN model for R use.
 Authors@R: c(person(given = "John",family = "Muschelli",

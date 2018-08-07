@@ -37,10 +37,11 @@ Predict from FLEXCONN model
 # predict_flexconn(python_cmd = "python3)
 library(reticulate)
 \dontrun{
-use_python("/Library/Frameworks/Python.framework/Versions/3.5/bin/python3")
+use_python("python3")
 }
 flair = system.file("extdata", "FLAIR.nii.gz", package = "flexconnr")
 t1 = system.file("extdata", "T1.nii.gz", package = "flexconnr")
 pp = predict_flexconn(t1 = t1, flair = flair)
+# result = RNifti::readNifti(pp[2])
 
 }

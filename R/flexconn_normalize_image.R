@@ -3,11 +3,12 @@
 #' @param image Object of class \code{nifti} or filename
 #' @param contrast Type of imaging modality.
 #'
-#' @return An object of class \code{nifti}
+#' @return An list of object of class \code{nifti} and the peak used to norm.
 #' @export
 #'
 #' @importFrom neurobase check_nifti
 #' @importFrom reticulate import
+#' @examples
 #'
 #' library(reticulate)
 #' \dontrun{
@@ -38,6 +39,11 @@ flexconn_normalize_image = function(
   reticulate::source_python(test_py)
   peak = normalize_image(image, contrast = contrast)
 
+  peak = as.numeric(c(peak))
   ximage = ximage / peak
+  L = list(
+    image = ximage,
+    norm_image = ximage,
+    peak = peak)
   return(ximage)
 }

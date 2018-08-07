@@ -12,8 +12,17 @@ flexconn_normalize_image(image, contrast = c("T1", "T2", "FLAIR", "PD"))
 \item{contrast}{Type of imaging modality.}
 }
 \value{
-An object of class \code{nifti}
+An list of object of class \code{nifti} and the peak used to norm.
 }
 \description{
 Normalize Image
+}
+\examples{
+
+library(reticulate)
+\dontrun{
+use_python("/Library/Frameworks/Python.framework/Versions/3.5/bin/python3")
+}
+flair = system.file("extdata", "FLAIR.nii.gz", package = "flexconnr")
+norm_flair = flexconn_normalize_image(flair, "FLAIR")
 }

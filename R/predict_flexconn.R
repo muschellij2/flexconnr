@@ -24,11 +24,12 @@
 #' # predict_flexconn(python_cmd = "python3)
 #' library(reticulate)
 #' \dontrun{
-#' use_python("/Library/Frameworks/Python.framework/Versions/3.5/bin/python3")
+#' use_python("python3")
 #' }
 #' flair = system.file("extdata", "FLAIR.nii.gz", package = "flexconnr")
 #' t1 = system.file("extdata", "T1.nii.gz", package = "flexconnr")
 #' pp = predict_flexconn(t1 = t1, flair = flair)
+#' # result = RNifti::readNifti(pp[2])
 #'
 predict_flexconn = function(
   t1, flair,
@@ -65,8 +66,8 @@ predict_flexconn = function(
                      c("_LesionMembership.nii.gz", "_LesionMask.nii.gz"))
   outfiles = file.path(outdir, outfiles)
   if (verbose) {
-    message(paste0("Output files should be located at: ",
-                   paste(outfiles, collapse = " ")))
+    message(paste0("Output files should be located at:\n ",
+                   paste(outfiles, collapse = " and ")))
   }
 
   res = py_predict_flexconn(t1, flair, models, outdir, gpu)
