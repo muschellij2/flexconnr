@@ -1,8 +1,9 @@
 Type: Package
 Package: flexconnr
 Version: 0.2.0
-Title: FLEXCONN Model Wrapped in R
-Description: Wraps the FLEXCONN model for R use.
+Title: 'FLEXCONN' Model Wrapped in R
+Description: Wraps the Fast Lesion Extraction using Convolutional 
+  Neural Networks ('FLEXCONN') model for R use.
 Authors@R: c(person(given = "John",family = "Muschelli",
     email = "muschellij2@gmail.com",role = c("aut", "cre"),
     comment = c(ORCID = "0000-0001-6469-1750")))
