@@ -1,6 +1,24 @@
 language: R
 sudo: no
 cache: packages
+
+env:
+  - KERAS_BACKEND="tensorflow"
+  - KERAS_IMPLEMENTATION="tensorflow"
+
+cache:
+  packages: true
+  directories:
+    - $HOME/.keras
+    - $HOME/.cache/pip
+
+before_script:
+  - pip3 install --upgrade --ignore-installed --user travis pip setuptools wheel virtualenv
+  - pip3 install --upgrade --ignore-installed --user numpy keras scipy statsmodels tqdm nibabel h5py scikit-learn termcolor travis keras h5py pyyaml Pillow scipy
+  - Rscript -e "install.packages('tensorflow')"
+  - R -e 'tensorflow::install_tensorflow(version = "1.9.0")'
+
+
 after_success: if [ "$TRAVIS_OS_NAME" == "linux" ]; then Rscript -e 'covr::codecov(type
   = "all")'; fi
 warnings_are_errors: yes
