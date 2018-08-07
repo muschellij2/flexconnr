@@ -1,0 +1,17 @@
+Package: flexconnr
+Version: 0.1.0
+Title: FLEXCONN Model Wrapped in R
+Description: Wraps the FLEXCONN model for R use.
+Authors@R: c(person(given = "John",family = "Muschelli",email = "muschellij2@gmail.com",role = c("aut", "cre"),comment = c(ORCID = "0000-0001-6469-1750")))
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Type: Package
+Suggests: 
+    knitr,
+    rmarkdown,
+    covr,
+    testthat
+VignetteBuilder: knitr
+URL: https://github.com/muschellij2/flexconnr
+BugReports: https://github.com/muschellij2/flexconnr/issues
