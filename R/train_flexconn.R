@@ -32,6 +32,9 @@ train_flexconn = function(
   gpu = "gpu",
   verbose = TRUE) {
 
+  flexconn_train = NULL
+  rm(list = "flexconn_train")
+
   atlas_dir = normalizePath(atlas_dir, winslash = "/", mustWork = TRUE)
 
   flair = list.files(atlas_dir, pattern = "atlas.*_FL.nii")
@@ -57,11 +60,9 @@ train_flexconn = function(
   #############################
   # Load the script
   #############################
-  flexconn_dir = system.file("extdata", package = "flexconnr")
-  stopifnot(dir.exists(flexconn_dir))
-
-  train_py = file.path(flexconn_dir,
-                      "FLEXCONN_Train.py")
+  train_py = system.file("extdata", "FLEXCONN_Train.py",
+                             package = "flexconnr")
+  stopifnot(file.exists(train_py))
   reticulate::source_python(train_py)
 
   if (is.null(outdir)) {

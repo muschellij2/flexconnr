@@ -19,6 +19,9 @@
 flexconn_normalize_image = function(
   image, contrast = c("T1", "T2", "FLAIR", "PD")) {
 
+  normalize_image = NULL
+  rm(list = "normalize_image")
+
   ximage = check_nifti(image)
 
   contrast = match.arg(contrast)
@@ -26,16 +29,17 @@ flexconn_normalize_image = function(
 
   image = checkimg(image)
 
-  flexconn_dir = system.file("extdata", package = "flexconnr")
-  stopifnot(dir.exists(flexconn_dir))
+  test_py = system.file(
+    "extdata", "normalize_image.py",
+    package = "flexconnr")
+  stopifnot(file.exists(test_py))
+
   nb = import("nibabel", convert = FALSE)
   np = import("numpy", convert = FALSE)
   image = nb$load(image)
   image = image$get_data()
   image = image$astype(np$float32)
 
-  test_py = file.path(flexconn_dir,
-                      "normalize_image.py")
   reticulate::source_python(test_py)
   peak = normalize_image(image, contrast = contrast)
 

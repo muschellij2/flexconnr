@@ -1,12 +1,16 @@
 context("Trying to make sure normalize works")
 
-test_that({
+testthat::test_that(desc = "trying to normalize images", {
   testthat::skip_on_cran()
   if (reticulate::py_available()) {
-    reticulate::use_python("python3")
+    py_path = "/Library/Frameworks/Python.framework/Versions/3.5/bin/python3"
+    if (!file.exists(py_path)) {
+      py_path = "python"
+    }
+    reticulate::use_python(py_path)
     if (reticulate::py_numpy_available()) {
       flair = system.file("extdata", "FLAIR.nii.gz", package = "flexconnr")
-      norm_flair = flexconn_normalize_image(flair, "FLAIR")
+      norm_flair = flexconnr::flexconn_normalize_image(flair, "FLAIR")
     }
   }
 })

@@ -39,11 +39,11 @@ predict_flexconn = function(
   num_atlases = c("21", "61"),
   verbose = TRUE) {
 
-  flexconn_dir = system.file("extdata", package = "flexconnr")
-  stopifnot(dir.exists(flexconn_dir))
+  py_predict_flexconn = NULL
+  rm(list = "py_predict_flexconn")
 
-  test_py = file.path(flexconn_dir,
-                      "FLEXCONN_Test.py")
+  test_py = system.file("extdata", "FLEXCONN_Test.py", package = "flexconnr")
+  stopifnot(file.exists(test_py))
   reticulate::source_python(test_py)
 
   t1 = checkimg(t1)
@@ -59,10 +59,13 @@ predict_flexconn = function(
   outdir = path.expand(outdir)
   dir.create(outdir, showWarnings = FALSE, recursive = TRUE)
 
+  flexconn_dir = system.file("extdata", package = "flexconnr")
+
   models = file.path(flexconn_dir,
                      paste0(num_atlases, "atlases"))
   models = list.files(pattern = ".h5$", path = models,
                       full.names = TRUE, recursive = TRUE)
+  stopifnot(length(models) > 0)
   outfiles =  paste0(base,
                      c("_LesionMembership.nii.gz", "_LesionMask.nii.gz"))
   outfiles = file.path(outdir, outfiles)
@@ -70,6 +73,7 @@ predict_flexconn = function(
     message(paste0("Output files should be located at:\n ",
                    paste(outfiles, collapse = " and ")))
   }
+
 
   res = py_predict_flexconn(t1, flair, models, outdir, gpu)
 
