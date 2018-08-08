@@ -9,13 +9,13 @@
 #' @importFrom neurobase check_nifti
 #' @importFrom reticulate import
 #' @examples
-#'
-#' library(reticulate)
 #' \dontrun{
+#' library(reticulate)
 #' use_python("/Library/Frameworks/Python.framework/Versions/3.5/bin/python3")
-#' }
+#'
 #' flair = system.file("extdata", "FLAIR.nii.gz", package = "flexconnr")
 #' norm_flair = flexconn_normalize_image(flair, "FLAIR")
+#' }
 flexconn_normalize_image = function(
   image, contrast = c("T1", "T2", "FLAIR", "PD")) {
 

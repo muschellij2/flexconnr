@@ -24,9 +24,6 @@ Note that 2D patches are employed because usually FLAIR images are acquired 2D.}
 Use "cpu" to use CPU.  Can also be \code{NULL}.}
 
 \item{verbose}{Print diagnostic messages}
-
-\item{num_atlases}{Specifies which model to use.
-Determined by the number of atlases in the FLEXCONN model.}
 }
 \value{
 A vector of filenames
@@ -35,7 +32,7 @@ A vector of filenames
 Training for Fast Lesion Extraction using Convolutional Neural Networks (FLEXCONN)
 }
 \examples{
-#' \dontrun{
+\dontrun{
 library(reticulate)
 use_python("python3")
 }

@@ -7,8 +7,6 @@
 #' @param outdir Output directory where the trained models are written.
 #' @param gpu Choice for GPU. Use the integer ID for the GPU.
 #' Use "cpu" to use CPU.  Can also be \code{NULL}.
-#' @param num_atlases Specifies which model to use.
-#' Determined by the number of atlases in the FLEXCONN model.
 #' @param verbose Print diagnostic messages
 #' @param atlas_dir Atlas directory containing atlasXX_T1.nii,
 #' atlasXX_FL.nii.gz, atlasXX_mask.nii.gz, where \code{XX=1,2,3, etc}
@@ -22,7 +20,7 @@
 #' @importFrom reticulate use_python source_python
 #' @importFrom neurobase checkimg nii.stub
 #' @examples
-#' #' \dontrun{
+#' \dontrun{
 #' library(reticulate)
 #' use_python("python3")
 #' }

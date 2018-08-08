@@ -13,8 +13,8 @@ cache:
     - $HOME/.cache/pip
 
 before_script:
-  - pip3 install --upgrade --ignore-installed --user travis pip setuptools wheel virtualenv
-  - pip3 install --upgrade --ignore-installed --user numpy keras scipy statsmodels tqdm nibabel h5py scikit-learn termcolor travis keras h5py pyyaml Pillow scipy
+  - pip3.6 install --upgrade --ignore-installed --user travis pip setuptools wheel virtualenv
+  - pip3.6 install --upgrade --ignore-installed --user numpy keras scipy statsmodels tqdm nibabel h5py scikit-learn termcolor travis keras h5py pyyaml Pillow scipy
   - Rscript -e "install.packages('tensorflow')"
   - R -e 'tensorflow::install_tensorflow(version = "1.9.0")'
 

@@ -18,11 +18,11 @@ An list of object of class \code{nifti} and the peak used to norm.
 Normalize Image
 }
 \examples{
-
-library(reticulate)
 \dontrun{
+library(reticulate)
 use_python("/Library/Frameworks/Python.framework/Versions/3.5/bin/python3")
-}
+
 flair = system.file("extdata", "FLAIR.nii.gz", package = "flexconnr")
 norm_flair = flexconn_normalize_image(flair, "FLAIR")
+}
 }
