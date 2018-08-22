@@ -24,7 +24,8 @@
 #' # predict_flexconn(python_cmd = "python3)
 #' library(reticulate)
 #' \dontrun{
-#' use_python("python3")
+#' reticulate::use_python("/Library/Frameworks/Python.framework/Versions/3.5/bin/python3")
+#' # reticulate::use_python("python3")
 #'
 #' flair = system.file("extdata", "FLAIR.nii.gz", package = "flexconnr")
 #' t1 = system.file("extdata", "T1.nii.gz", package = "flexconnr")
@@ -33,7 +34,7 @@
 #' }
 #'
 predict_flexconn = function(
-  t1, flair,
+  t1, flair, t2 = NULL,
   outdir = NULL,
   gpu = "cpu",
   num_atlases = c("21", "61"),
@@ -42,8 +43,15 @@ predict_flexconn = function(
   py_predict_flexconn = NULL
   rm(list = "py_predict_flexconn")
 
-  test_py = system.file("extdata", "FLEXCONN_Test.py", package = "flexconnr")
+  fname = "FLEXCONN_Test.py"
+  if (!is.null(t2)) {
+    fname = "FLEXCONN_Test_T2.py"
+  }
+
+  test_py = system.file("extdata", fname, package = "flexconnr")
   stopifnot(file.exists(test_py))
+  # env = new.env()
+  # reticulate::source_python(test_py, envir = env)
   reticulate::source_python(test_py)
 
   t1 = checkimg(t1)
@@ -76,6 +84,8 @@ predict_flexconn = function(
 
 
   res = py_predict_flexconn(t1, flair, models, outdir, gpu)
-
+  if (!all(file.exists(outfiles))) {
+    warning("Output files do not exist!")
+  }
   return(outfiles)
 }

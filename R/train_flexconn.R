@@ -4,6 +4,7 @@
 #' @param patch_size Patch size, e.g. 35x35 or 31x31 (2D).
 #' Patch sizes are separated by x.
 #' Note that 2D patches are employed because usually FLAIR images are acquired 2D.
+#' @param use_t2 should T2 images be used?
 #' @param outdir Output directory where the trained models are written.
 #' @param gpu Choice for GPU. Use the integer ID for the GPU.
 #' Use "cpu" to use CPU.  Can also be \code{NULL}.
@@ -27,6 +28,7 @@
 #'
 train_flexconn = function(
   atlas_dir,
+  use_t2 = FALSE,
   patch_size = c(35, 35),
   outdir = NULL,
   gpu = "gpu",
@@ -39,14 +41,21 @@ train_flexconn = function(
 
   flair = list.files(atlas_dir, pattern = "atlas.*_FL.nii")
   t1 = list.files(atlas_dir, pattern = "atlas.*_T1.nii")
+  if (use_t2) {
+    t2 = list.files(atlas_dir, pattern = "atlas.*_T2.nii")
+  }
   mask = list.files(atlas_dir, pattern = "atlas.*_mask.nii")
 
 
   # worst check ever
   n_flair = length(flair)
   n_t1 = length(t1)
+  n_t2 = 0
+  if (use_t2) {
+    n_t2 = length(t2)
+  }
   n_mask = length(mask)
-  n_atlas = max(n_flair, n_t1, n_mask)
+  n_atlas = max(n_flair, n_t1, n_mask, n_t2)
   f = function(x, name) {
     if (length(x) != n_atlas) {
       msg = paste0(name, " has different number of atlases than required (",
@@ -54,14 +63,19 @@ train_flexconn = function(
       stop(msg)
     }
   }
-  mapply(f, list(flair, t1, mask), c("flair", "t1", "mask"))
+  L = list(flair = flair, t1 = t1, mask = mask)
+  if (use_t2) {
+    L$t2 = t2
+  }
+  mapply(f, L, names(L))
 
 
   #############################
   # Load the script
   #############################
-  train_py = system.file("extdata", "FLEXCONN_Train.py",
-                             package = "flexconnr")
+  fname = ifelse(use_t2, "FLEXCONN_Train_T2.py", "FLEXCONN_Train.py")
+  train_py = system.file("extdata", fname,
+                         package = "flexconnr")
   stopifnot(file.exists(train_py))
   reticulate::source_python(train_py)
 
@@ -76,7 +90,9 @@ train_flexconn = function(
   dir.create(outdir, showWarnings = FALSE, recursive = TRUE)
 
   out_stub = paste0("FLEXCONNmodel2D_", patch_size, "_")
-  before_model = list.files(pattern = out_stub, path = outdir, recursive = FALSE,
+  before_model = list.files(pattern = out_stub,
+                            path = outdir,
+                            recursive = FALSE,
                             full.names = TRUE)
 
   if (verbose) {
@@ -91,8 +107,9 @@ train_flexconn = function(
     out_dir = outdir,
     gpu = gpu)
 
-  after_model = list.files(pattern = out_stub, path = outdir, recursive = FALSE,
-                            full.names = TRUE)
+  after_model = list.files(pattern = out_stub,
+                           path = outdir, recursive = FALSE,
+                           full.names = TRUE)
   outfiles = setdiff(after_model, before_model)
 
   return(outfiles)

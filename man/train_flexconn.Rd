@@ -4,8 +4,8 @@
 \alias{train_flexconn}
 \title{Training for Fast Lesion Extraction using Convolutional Neural Networks (FLEXCONN)}
 \usage{
-train_flexconn(atlas_dir, patch_size = c(35, 35), outdir = NULL,
-  gpu = "gpu", verbose = TRUE)
+train_flexconn(atlas_dir, use_t2 = FALSE, patch_size = c(35, 35),
+  outdir = NULL, gpu = "gpu", verbose = TRUE)
 }
 \arguments{
 \item{atlas_dir}{Atlas directory containing atlasXX_T1.nii,
@@ -13,6 +13,8 @@ atlasXX_FL.nii.gz, atlasXX_mask.nii.gz, where \code{XX=1,2,3, etc}
 All atlas images must be in axial RAI orientation, or whatever orientation
 FLAIR has the highest in-plane resolution.  Atlas T1 and FLAIR images must
 be coregistered and have same dimensions.Z}
+
+\item{use_t2}{should T2 images be used?}
 
 \item{patch_size}{Patch size, e.g. 35x35 or 31x31 (2D).
 Patch sizes are separated by x.

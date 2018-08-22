@@ -17,7 +17,7 @@
 #' norm_flair = flexconn_normalize_image(flair, "FLAIR")
 #' }
 flexconn_normalize_image = function(
-  image, contrast = c("T1", "T2", "FLAIR", "PD")) {
+  image, contrast = c("T1", "T2", "FLAIR", "PD", "FL")) {
 
   normalize_image = NULL
   rm(list = "normalize_image")

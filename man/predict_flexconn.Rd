@@ -4,7 +4,7 @@
 \alias{predict_flexconn}
 \title{Predict from FLEXCONN model}
 \usage{
-predict_flexconn(t1, flair, outdir = NULL, gpu = "cpu",
+predict_flexconn(t1, flair, t2 = NULL, outdir = NULL, gpu = "cpu",
   num_atlases = c("21", "61"), verbose = TRUE)
 }
 \arguments{
@@ -37,7 +37,8 @@ Predict from FLEXCONN model
 # predict_flexconn(python_cmd = "python3)
 library(reticulate)
 \dontrun{
-use_python("python3")
+reticulate::use_python("/Library/Frameworks/Python.framework/Versions/3.5/bin/python3")
+# reticulate::use_python("python3")
 
 flair = system.file("extdata", "FLAIR.nii.gz", package = "flexconnr")
 t1 = system.file("extdata", "T1.nii.gz", package = "flexconnr")

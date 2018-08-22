@@ -4,7 +4,8 @@
 \alias{flexconn_normalize_image}
 \title{Normalize Image}
 \usage{
-flexconn_normalize_image(image, contrast = c("T1", "T2", "FLAIR", "PD"))
+flexconn_normalize_image(image, contrast = c("T1", "T2", "FLAIR", "PD",
+  "FL"))
 }
 \arguments{
 \item{image}{Object of class \code{nifti} or filename}
