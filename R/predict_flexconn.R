@@ -43,6 +43,14 @@ predict_flexconn = function(
   py_predict_flexconn = NULL
   rm(list = "py_predict_flexconn")
 
+  num_atlases = as.character(num_atlases)
+  num_atlases = match.arg(num_atlases)
+  if (num_atlases == "61" & !is.null(t2)) {
+    warning(paste0("61 atlas model not available with T2! ",
+                   "Using T1 and FLAIR only"))
+    t2 = NULL
+  }
+
   fname = "FLEXCONN_Test.py"
   if (!is.null(t2)) {
     fname = "FLEXCONN_Test_T2.py"
@@ -58,7 +66,6 @@ predict_flexconn = function(
   base = nii.stub(t1, bn = TRUE)
 
   flair = neurobase::checkimg(flair)
-  num_atlases = match.arg(num_atlases)
 
   if (is.null(outdir)) {
     outdir = tempfile()
