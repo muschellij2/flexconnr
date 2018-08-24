@@ -30,7 +30,7 @@ flexconn_get_peak = function(
   normalize_image = NULL
   rm(list = "normalize_image")
 
-  ximage = check_nifti(image)
+  ximage = check_nifti(image, allow.array = TRUE)
 
   contrast = match.arg(contrast)
   contrast = substr(contrast, 1, 2)
