@@ -2,10 +2,13 @@
 % Please edit documentation in R/flexconn_normalize_image.R
 \name{flexconn_normalize_image}
 \alias{flexconn_normalize_image}
+\alias{flexconn_get_peak}
 \title{Normalize Image}
 \usage{
 flexconn_normalize_image(image, contrast = c("T1", "T2", "FLAIR", "PD",
   "FL"))
+
+flexconn_get_peak(image, contrast = c("T1", "T2", "FLAIR", "PD", "FL"))
 }
 \arguments{
 \item{image}{Object of class \code{nifti} or filename}

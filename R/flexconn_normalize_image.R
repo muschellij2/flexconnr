@@ -18,6 +18,14 @@
 #' }
 flexconn_normalize_image = function(
   image, contrast = c("T1", "T2", "FLAIR", "PD", "FL")) {
+  res = flexconn_normalize_image(image = image, contrast = contrast)
+  return(res$norm_image)
+}
+
+#' @rdname flexconn_normalize_image
+#' @export
+flexconn_get_peak = function(
+  image, contrast = c("T1", "T2", "FLAIR", "PD", "FL")) {
 
   normalize_image = NULL
   rm(list = "normalize_image")
@@ -46,8 +54,8 @@ flexconn_normalize_image = function(
   peak = as.numeric(c(peak))
   ximage = ximage / peak
   L = list(
-    image = ximage,
+    image = image,
     norm_image = ximage,
     peak = peak)
-  return(ximage)
+  return(L)
 }
