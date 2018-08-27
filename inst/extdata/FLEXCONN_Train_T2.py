@@ -264,6 +264,7 @@ def flexconn_train(atlas_dir, numatlas, patchsize, out_dir, gpu = None):
     print("Model is written at " + outname)
     model.save(outname)
 
+    return outname
 
 # if __name__ == "__main__":
 #     parser = argparse.ArgumentParser(description='Training for Fast Lesion Extraction using '

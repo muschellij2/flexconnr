@@ -226,3 +226,5 @@ def py_predict_flexconn(t1, flair, t2, models, outdir, gpu):
     print("Writing " + outname2)
     nib.Nifti1Image(label, img_obj1.affine, img_obj1.header).to_filename(outname2)
     shutil.rmtree(tmpdir)
+    return outname1, outname2
+    
