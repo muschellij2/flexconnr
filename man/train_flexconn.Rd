@@ -28,7 +28,7 @@ Use "cpu" to use CPU.  Can also be \code{NULL}.}
 \item{verbose}{Print diagnostic messages}
 }
 \value{
-A vector of filenames
+A list of filenames
 }
 \description{
 Training for Fast Lesion Extraction using Convolutional Neural Networks (FLEXCONN)

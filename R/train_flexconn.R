@@ -15,7 +15,7 @@
 #' FLAIR has the highest in-plane resolution.  Atlas T1 and FLAIR images must
 #' be coregistered and have same dimensions.Z
 #'
-#' @return A vector of filenames
+#' @return A list of filenames
 #' @export
 #'
 #' @importFrom reticulate use_python source_python
@@ -112,5 +112,7 @@ train_flexconn = function(
                            full.names = TRUE)
   outfiles = setdiff(after_model, before_model)
 
-  return(outfiles)
+  L = list(model_name = outfiles,
+           result = res)
+  return(L)
 }

@@ -8,6 +8,8 @@
 #' native resolution is 1x1x4mm^3 in axial RAI orientation.
 #' @param flair FLAIR image to predict from,
 #' must be registered to T1 and have same orientation as T1
+#' @param t2 (optional) T2 image to predict from,
+#' must be registered to T1 and have same orientation as T1
 #' @param outdir Output directory for predictions
 #' @param gpu Either an integer for the GPU.
 #' Use "cpu" to use CPU.
