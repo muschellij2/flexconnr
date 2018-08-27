@@ -97,6 +97,6 @@ predict_flexconn = function(
   if (!all(file.exists(outfiles))) {
     warning("Output files do not exist!")
   }
-  attributes(outfiles, "result") = res
+  attr(outfiles, "result") = res
   return(outfiles)
 }
