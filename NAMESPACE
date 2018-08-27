@@ -2,6 +2,7 @@
 
 export(flexconn_get_peak)
 export(flexconn_normalize_image)
+export(get_model_paths)
 export(predict_flexconn)
 export(train_flexconn)
 importFrom(neurobase,check_nifti)

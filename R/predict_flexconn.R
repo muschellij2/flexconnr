@@ -13,6 +13,8 @@
 #' Use "cpu" to use CPU.
 #' @param num_atlases Specifies which model to use.
 #' Determined by the number of atlases in the FLEXCONN model.
+#' @param outcomes The outcome used to train the model, from rater 1
+#' or rater 2
 #' @param verbose Print diagnostic messages
 #'
 #' @return A vector of filenames
@@ -38,6 +40,7 @@ predict_flexconn = function(
   outdir = NULL,
   gpu = "cpu",
   num_atlases = c("21", "61"),
+  outcomes = c("mask1", "mask2"),
   verbose = TRUE) {
 
   py_predict_flexconn = NULL
@@ -74,12 +77,10 @@ predict_flexconn = function(
   outdir = path.expand(outdir)
   dir.create(outdir, showWarnings = FALSE, recursive = TRUE)
 
-  flexconn_dir = system.file("extdata", package = "flexconnr")
-
-  models = file.path(flexconn_dir,
-                     paste0(num_atlases, "atlases"))
-  models = list.files(pattern = ".h5$", path = models,
-                      full.names = TRUE, recursive = TRUE)
+  models = get_model_paths(
+    num_atlases = num_atlases,
+    outcomes = outcomes)
+  models = c(models)
   stopifnot(length(models) > 0)
   outfiles =  paste0(base,
                      c("_LesionMembership.nii.gz", "_LesionMask.nii.gz"))
@@ -94,5 +95,6 @@ predict_flexconn = function(
   if (!all(file.exists(outfiles))) {
     warning("Output files do not exist!")
   }
+  attributes(outfiles, "result") = res
   return(outfiles)
 }

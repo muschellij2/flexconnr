@@ -5,7 +5,8 @@
 \title{Predict from FLEXCONN model}
 \usage{
 predict_flexconn(t1, flair, t2 = NULL, outdir = NULL, gpu = "cpu",
-  num_atlases = c("21", "61"), verbose = TRUE)
+  num_atlases = c("21", "61"), outcomes = c("mask1", "mask2"),
+  verbose = TRUE)
 }
 \arguments{
 \item{t1}{T1-weighted image to predict from: skullstripped, bias-corrected).
@@ -24,6 +25,9 @@ Use "cpu" to use CPU.}
 
 \item{num_atlases}{Specifies which model to use.
 Determined by the number of atlases in the FLEXCONN model.}
+
+\item{outcomes}{The outcome used to train the model, from rater 1
+or rater 2}
 
 \item{verbose}{Print diagnostic messages}
 }
