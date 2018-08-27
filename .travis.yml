@@ -6,6 +6,8 @@ env:
   - KERAS_BACKEND="tensorflow"
   - KERAS_IMPLEMENTATION="tensorflow"
 
+python: 3.6
+
 cache:
   packages: true
   directories:
