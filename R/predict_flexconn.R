@@ -82,6 +82,8 @@ predict_flexconn = function(
     outcomes = outcomes)
   models = c(models)
   stopifnot(length(models) > 0)
+  # need for only length 1
+  models = as.list(models)
   outfiles =  paste0(base,
                      c("_LesionMembership.nii.gz", "_LesionMask.nii.gz"))
   outfiles = file.path(outdir, outfiles)
