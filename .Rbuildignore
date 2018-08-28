@@ -1,3 +1,4 @@
+^requirements\.txt$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^flexconnr\.Rproj$

@@ -1,10 +1,26 @@
 init:
+  - "ECHO %PYTHON_VERSION% %MINICONDA%"  
   ps: |
     $ErrorActionPreference = "Stop"
     Invoke-WebRequest http://raw.github.com/krlmlr/r-appveyor/master/scripts/appveyor-tool.ps1 -OutFile "..\appveyor-tool.ps1"
     Import-Module '..\appveyor-tool.ps1'
+
+environment:
+  global:
+    WARNINGS_ARE_ERRORS: 1.0
+    USE_RTOOLS: yes
+    R_CHECK_INSTALL_ARGS: --install-args=--build --no-multiarch
+    PYTHON_VERSION: 2.7
+    MINICONDA: C:\Miniconda-x64
+
 install:
-  ps: Bootstrap
+  - ps: Bootstrap
+  - "set PATH=%MINICONDA%;%MINICONDA%\\Scripts;%PATH%"
+  - conda config --set always_yes yes --set changeps1 no
+  - if exist "requirements.txt" conda update -q conda
+  - if exist "requirements.txt" conda info -a
+  - if exist "requirements.txt" conda create -q -n test-environment python="%PYTHON_VERSION%" --file requirements.txt
+
 cache: C:\RLibrary
 build_script: travis-tool.sh install_deps
 test_script: travis-tool.sh run_tests
@@ -22,11 +38,7 @@ artifacts:
     name: Logs
   - path: \*_*.zip
     name: Bits
-environment:
-  global:
-    WARNINGS_ARE_ERRORS: 1.0
-    USE_RTOOLS: yes
-    R_CHECK_INSTALL_ARGS: --install-args=--build --no-multiarch
+
 deploy:
   provider: GitHub
   description: Windows Binary

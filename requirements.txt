@@ -1,0 +1,14 @@
+numpy 
+tensorflow
+keras 
+scipy 
+statsmodels 
+tqdm 
+nibabel 
+h5py 
+scikit-learn 
+termcolor 
+travis 
+h5py 
+pyyaml 
+Pillow 
