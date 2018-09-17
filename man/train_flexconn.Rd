@@ -5,7 +5,7 @@
 \title{Training for Fast Lesion Extraction using Convolutional Neural Networks (FLEXCONN)}
 \usage{
 train_flexconn(atlas_dir, use_t2 = FALSE, patch_size = c(35, 35),
-  outdir = NULL, gpu = "gpu", verbose = TRUE)
+  outdir = NULL, gpu = "gpu", normalize = TRUE, verbose = TRUE)
 }
 \arguments{
 \item{atlas_dir}{Atlas directory containing atlasXX_T1.nii,
@@ -24,6 +24,8 @@ Note that 2D patches are employed because usually FLAIR images are acquired 2D.}
 
 \item{gpu}{Choice for GPU. Use the integer ID for the GPU.
 Use "cpu" to use CPU.  Can also be \code{NULL}.}
+
+\item{normalize}{Should the images be normalized?}
 
 \item{verbose}{Print diagnostic messages}
 }

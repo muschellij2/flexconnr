@@ -120,7 +120,7 @@ def split_filename(input_path):
     
 #     results = parser.parse_args()
 
-def py_predict_flexconn(t1, flair, t2, models, outdir, gpu):
+def py_predict_flexconn(t1, flair, t2, models, outdir, gpu, normalize=True):
     if gpu == 'cpu':
         # To run prediction only on CPU, uncomment the following two lines
         os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
@@ -173,9 +173,10 @@ def py_predict_flexconn(t1, flair, t2, models, outdir, gpu):
     vol2 = vol2.astype(new_dtype)
     vol3 = vol3.astype(new_dtype)
         
-    vol1 /= normalize_image(vol1, 't1')
-    vol2 /= normalize_image(vol2, 'fl')
-    vol3 /= normalize_image(vol3, 't2')
+    if normalize:
+        vol1 /= normalize_image(vol1, 't1')
+        vol2 /= normalize_image(vol2, 'fl')
+        vol3 /= normalize_image(vol3, 't2')
     
     outvol = np.zeros(im_size + (len(models),))
     

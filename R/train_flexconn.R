@@ -14,6 +14,7 @@
 #' All atlas images must be in axial RAI orientation, or whatever orientation
 #' FLAIR has the highest in-plane resolution.  Atlas T1 and FLAIR images must
 #' be coregistered and have same dimensions.Z
+#' @param normalize Should the images be normalized?
 #'
 #' @return A list of filenames
 #' @export
@@ -32,6 +33,7 @@ train_flexconn = function(
   patch_size = c(35, 35),
   outdir = NULL,
   gpu = "gpu",
+  normalize = TRUE,
   verbose = TRUE) {
 
   flexconn_train = NULL
@@ -105,7 +107,8 @@ train_flexconn = function(
     numatlas = n_atlas,
     patchsize = patch_size,
     out_dir = outdir,
-    gpu = gpu)
+    gpu = gpu,
+    normalize = normalize)
 
   after_model = list.files(pattern = out_stub,
                            path = outdir, recursive = FALSE,

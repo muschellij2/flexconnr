@@ -5,8 +5,8 @@
 \title{Predict from FLEXCONN model}
 \usage{
 predict_flexconn(t1, flair, t2 = NULL, outdir = NULL, gpu = "cpu",
-  num_atlases = c("21", "61"), outcomes = c("mask1", "mask2"),
-  verbose = TRUE)
+  normalize = TRUE, num_atlases = c("21", "61"),
+  outcomes = c("mask1", "mask2"), verbose = TRUE)
 }
 \arguments{
 \item{t1}{T1-weighted image to predict from: skullstripped, bias-corrected).
@@ -25,6 +25,8 @@ must be registered to T1 and have same orientation as T1}
 
 \item{gpu}{Either an integer for the GPU.
 Use "cpu" to use CPU.}
+
+\item{normalize}{Should the images be normalized?}
 
 \item{num_atlases}{Specifies which model to use.
 Determined by the number of atlases in the FLEXCONN model.}

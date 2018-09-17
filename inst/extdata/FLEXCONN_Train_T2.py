@@ -147,7 +147,7 @@ def get_model():
     return model
 
 
-def flexconn_train(atlas_dir, numatlas, patchsize, out_dir, gpu = None):
+def flexconn_train(atlas_dir, numatlas, patchsize, out_dir, gpu = None, normalize = True):
 
     if not os.path.isdir(out_dir):
         print("Output directory does not exist. I will create it.")
@@ -226,10 +226,11 @@ def flexconn_train(atlas_dir, numatlas, patchsize, out_dir, gpu = None):
         print("Reading %s" % maskname)
         mask = nib.load(maskname).get_data().astype(np.float32)
         
-        # Normalize the images
-        t1 = np.array(t1 / normalize_image(t1, 'T1'), dtype=np.float32)
-        fl = np.array(fl / normalize_image(fl, 'FL'), dtype=np.float32)
-        t2 = np.array(t2 / normalize_image(t2, 'T2'), dtype=np.float32)
+        if normalize:
+            # Normalize the images
+            t1 = np.array(t1 / normalize_image(t1, 'T1'), dtype=np.float32)
+            fl = np.array(fl / normalize_image(fl, 'FL'), dtype=np.float32)
+            t2 = np.array(t2 / normalize_image(t2, 'T2'), dtype=np.float32)
         
         dim = t1.shape
         print("Image size = %d x %d x %d " % (dim[0], dim[1], dim[2]))
