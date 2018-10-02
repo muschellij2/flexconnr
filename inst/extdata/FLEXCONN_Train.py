@@ -250,27 +250,27 @@ def flexconn_train(atlas_dir, numatlas, patchsize, out_dir, gpu = None, normaliz
     return outname
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Training for Fast Lesion Extraction using '
-                                                 'Convolutional Neural Networks (FLEXCONN)')
+# if __name__ == "__main__":
+#     parser = argparse.ArgumentParser(description='Training for Fast Lesion Extraction using '
+#                                                  'Convolutional Neural Networks (FLEXCONN)')
     
-    parser.add_argument('--atlasdir', required=True, type=str,
-                        help='Atlas directory containing atlasXX_T1.nii, atlasXX_FL.nii, atlasXX_mask.nii.gz etc. '
-                             'XX=1,2,3... All atlas images must be in axial RAI orientation, or whatever orientation '
-                             'FLAIR has the highest in-plane resolution. For example, the associated training data  '
-                             'from ISBI2015 lesion segmentation challenge has axial 2D FLAIR acquired with 1x1x4 mm^3. '
-                             'Atlas T1 and FLAIR images must be coregistered and have same dimensions.')
-    parser.add_argument('--natlas', required=True, type=int,
-                        help='Number of atlases to be used. Atlas directory must contain these many atlases.')
-    parser.add_argument('--psize', required=True,
-                        help='Patch size, e.g. 35x35 or 31x31 (2D). Patch sizes are separated by x. '
-                             'Note that 2D patches are employed because usually FLAIR images are acquired 2D. '
-                             'Future releases will include full support for 3D patches. ')
-    parser.add_argument('--outdir', required=True, help='Output directory where the trained models are written.')
-    parser.add_argument('--gpu', type=str, help='Choice for GPU. Use the integer ID for the GPU. Use "cpu" to use CPU.')
-    parser.add_argument('--no_normalize', required=False, help=' Should the images be kept as scale and not normalized.',
-            action='store_true', default=False)
+#     parser.add_argument('--atlasdir', required=True, type=str,
+#                         help='Atlas directory containing atlasXX_T1.nii, atlasXX_FL.nii, atlasXX_mask.nii.gz etc. '
+#                              'XX=1,2,3... All atlas images must be in axial RAI orientation, or whatever orientation '
+#                              'FLAIR has the highest in-plane resolution. For example, the associated training data  '
+#                              'from ISBI2015 lesion segmentation challenge has axial 2D FLAIR acquired with 1x1x4 mm^3. '
+#                              'Atlas T1 and FLAIR images must be coregistered and have same dimensions.')
+#     parser.add_argument('--natlas', required=True, type=int,
+#                         help='Number of atlases to be used. Atlas directory must contain these many atlases.')
+#     parser.add_argument('--psize', required=True,
+#                         help='Patch size, e.g. 35x35 or 31x31 (2D). Patch sizes are separated by x. '
+#                              'Note that 2D patches are employed because usually FLAIR images are acquired 2D. '
+#                              'Future releases will include full support for 3D patches. ')
+#     parser.add_argument('--outdir', required=True, help='Output directory where the trained models are written.')
+#     parser.add_argument('--gpu', type=str, help='Choice for GPU. Use the integer ID for the GPU. Use "cpu" to use CPU.')
+#     parser.add_argument('--no_normalize', required=False, help=' Should the images be kept as scale and not normalized.',
+#             action='store_true', default=False)
     
-    results = parser.parse_args()   
+#     results = parser.parse_args()   
     
-    flexconn_train(results.atlasdir, results.natlas, results.psize, results.outdir, results.gpu, not results.no_normalize)
+#     flexconn_train(results.atlasdir, results.natlas, results.psize, results.outdir, results.gpu, not results.no_normalize)

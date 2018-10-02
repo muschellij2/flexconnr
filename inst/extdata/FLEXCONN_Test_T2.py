@@ -229,30 +229,30 @@ def py_predict_flexconn(t1, flair, t2, models, outdir, gpu, normalize=True):
     shutil.rmtree(tmpdir)
     return outname1, outname2
     
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Prediction with Fast Lesion Extraction using Convolutional '
-                                                 'Neural Networks (FLEXCONN)')
+# if __name__ == '__main__':
+#     parser = argparse.ArgumentParser(description='Prediction with Fast Lesion Extraction using Convolutional '
+#                                                  'Neural Networks (FLEXCONN)')
     
-    parser.add_argument('--models', type=str, required=True, nargs='+',
-                        help='Learnt models (.h5) files. Multiple models are accepted, e.g. training separately '
-                             'with two sets of lesion masks (from ISBI2015 challenge) as provided with this code.')
-    parser.add_argument('--t1', type=str, required=True,
-                        help='Subject T1 Image (skullstripped, bias-corrected). Since the training is 2D, make sure '
-                             'the test image is properly oriented, i.e. the in-plane has the highest native '
-                             'resolution. E.g. the training images are axial because their native resolution is 1x1x4 '
-                             'mm^3 in axial RAI orientation.')
-    parser.add_argument('--flair', type=str, required=True,
-                        help='Subject FLAIR Image (skullstripped, bias-corrected), '
-                             'must be registered to T1 and have same orientation as T1.')
-    parser.add_argument('--outdir', type=str, required=True,
-                        help='Output directory where the resultant membership and mask are written')
-    parser.add_argument('--normalize', type=bool, required=False,
-                        help='Should images be normalied')    
-    parser.add_argument('--gpu', type=str, help='Choice for GPU. Either an integer for the GPU. Use "cpu" to use CPU.')
-    parser.add_argument('--no_normalize', required=False, help=' Should the images be kept as scale and not normalized.',
-            action='store_true', default=False)
+#     parser.add_argument('--models', type=str, required=True, nargs='+',
+#                         help='Learnt models (.h5) files. Multiple models are accepted, e.g. training separately '
+#                              'with two sets of lesion masks (from ISBI2015 challenge) as provided with this code.')
+#     parser.add_argument('--t1', type=str, required=True,
+#                         help='Subject T1 Image (skullstripped, bias-corrected). Since the training is 2D, make sure '
+#                              'the test image is properly oriented, i.e. the in-plane has the highest native '
+#                              'resolution. E.g. the training images are axial because their native resolution is 1x1x4 '
+#                              'mm^3 in axial RAI orientation.')
+#     parser.add_argument('--flair', type=str, required=True,
+#                         help='Subject FLAIR Image (skullstripped, bias-corrected), '
+#                              'must be registered to T1 and have same orientation as T1.')
+#     parser.add_argument('--outdir', type=str, required=True,
+#                         help='Output directory where the resultant membership and mask are written')
+#     parser.add_argument('--normalize', type=bool, required=False,
+#                         help='Should images be normalied')    
+#     parser.add_argument('--gpu', type=str, help='Choice for GPU. Either an integer for the GPU. Use "cpu" to use CPU.')
+#     parser.add_argument('--no_normalize', required=False, help=' Should the images be kept as scale and not normalized.',
+#             action='store_true', default=False)
 
-    results = parser.parse_args()    
-    py_predict_flexconn(results.t1, results.flair, results.models, results.outdir, results.gpu, not results.no_normalize)
+#     results = parser.parse_args()    
+#     py_predict_flexconn(results.t1, results.flair, results.models, results.outdir, results.gpu, not results.no_normalize)
 
-        
+#         

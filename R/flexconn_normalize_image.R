@@ -18,7 +18,8 @@
 #' }
 flexconn_normalize_image = function(
   image, contrast = c("T1", "T2", "FLAIR", "PD", "FL")) {
-  res = flexconn_normalize_image(image = image, contrast = contrast)
+  res = flexconn_get_peak(image = image, contrast = contrast)
+
   return(res$norm_image)
 }
 
